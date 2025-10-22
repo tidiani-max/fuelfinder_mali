@@ -24,7 +24,10 @@ SECRET_KEY = 'django-insecure-#s9@k6oeoiyil#ljia85swvkkpbc-^mq#l^)ui73he##r^7aei
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://fuelfindermali-production.up.railway.app',
+    # Add any other domains your site might use (e.g., local development URL, custom domain)
+]
 ALLOWED_HOSTS = ['*']
 
 

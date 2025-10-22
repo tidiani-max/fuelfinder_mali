@@ -13,6 +13,6 @@ class StationSitemap(Sitemap):
         return '/'
 
 sitemaps = {
-    'test': TestSitemap, # Use 'test' instead of 'stations'
+    'test': StationSitemap, # Use 'test' instead of 'stations'
 }
 # Keep your urls.py the same, but it will use the new 'sitemaps' dictionary.

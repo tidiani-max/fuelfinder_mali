@@ -18,3 +18,16 @@ def home(request):
 
     stations = Station.objects.all().order_by('-created_at')
     return render(request, "home.html", {"stations": stations})
+
+
+from django.http import HttpResponse
+
+def robots_txt(request):
+    content = """
+    User-agent: *
+    Disallow:
+
+    Sitemap: https://fuelfindermali-production.up.railway.app/sitemap.xml
+    """
+    return HttpResponse(content, content_type="text/plain")
+

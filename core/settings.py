@@ -15,7 +15,6 @@ from pathlib import Path
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 import os
-import dj_database_url # Must be added at the top with other imports
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -81,11 +80,10 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 
 DATABASES = {
-    'default': dj_database_url.config(
-        # This checks for the DATABASE_URL environment variable provided by Railway
-        # If it's not there (like during local dev), it uses your sqlite file
-        default=os.environ.get('DATABASE_URL', f"sqlite:///{BASE_DIR / 'db.sqlite3'}")
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 # Password validation

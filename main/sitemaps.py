@@ -1,14 +1,18 @@
-# main/sitemaps.py
+# main/sitemaps.py (Temporary testing code)
 from django.contrib.sitemaps import Sitemap
-from .models import Station
 
-class StationSitemap(Sitemap):
-    changefreq = "hourly"
-    priority = 0.8
+# Do not import Station model
+# from .models import Station 
 
+class TestSitemap(Sitemap):
+    # This will just create one link for the home page.
     def items(self):
-        # *** CHANGE THIS LINE ***
-        return Station.objects.all().order_by('-created_at') # Order by most recently created
+        return ['home']
 
-    def lastmod(self, obj):
-        return obj.created_at
+    def location(self, item):
+        return '/'
+
+sitemaps = {
+    'test': TestSitemap, # Use 'test' instead of 'stations'
+}
+# Keep your urls.py the same, but it will use the new 'sitemaps' dictionary.

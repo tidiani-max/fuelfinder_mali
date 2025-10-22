@@ -4,7 +4,7 @@ from django.contrib.sitemaps import Sitemap
 # Do not import Station model
 # from .models import Station 
 
-class TestSitemap(Sitemap):
+class StationSitemap(Sitemap):
     # This will just create one link for the home page.
     def items(self):
         return ['home']

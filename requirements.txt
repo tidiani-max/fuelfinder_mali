@@ -1,5 +1,4 @@
 Django>=4.2
 gunicorn
-psycopg2-binary  # Optional if you use Postgres; not needed for SQLite
-
-
+psycopg2-binary
+dj-database-url

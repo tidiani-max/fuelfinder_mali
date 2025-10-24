@@ -1,36 +1,177 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <title>FuelFinder Mali – Trouvez du carburant facilement en temps réel au Mali</title>
-  <meta name="google-site-verification" content="AwnPfBZENi106pRosanxN--lMMCE1u7-FxhVjNTWpuM" />
-  <meta name="msvalidate.01" content="AB177527A0D6F607F70A1F4A52D148A2" />
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="FuelFinder Mali – Découvrez les stations-service disponibles au Mali en temps réel. Signalez et trouvez du carburant facilement.">
-  <meta name="keywords" content="FuelFinder Mali, trouver carburant Mali, station-service Mali, essence Mali, gas Mali">
-  <meta name="author" content="Cheick Tidiani Diawara"> <script src="https://cdn.tailwindcss.com">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FuelFinder Mali – Trouvez du carburant facilement en temps réel au Mali</title>
     
-  </script>
-  <style> 
-    /* Mali-inspired color palette */ 
-    :root { --mali-gold: #FDB913; 
-           --mali-red: #CE1126;
-           --mali-green: #14B53A; 
-           --mali-yellow: #FFD700;
-           --sand: #F5DEB3; --earth: #8B4513;
-          } 
-    body { 
-      background: linear-gradient(135deg, #14B53A 0%, #FDB913 25%, #CE1126 50%, #FFD700 75%, #14B53A 100%); 
-      background-size: 400% 400%; animation: gradientShift 15s ease infinite; } 
-    @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } } .mali-gradient { background: linear-gradient(135deg, var(--mali-green) 0%, var(--mali-yellow) 50%, var(--mali-red) 100%); } .mali-gradient-reverse { background: linear-gradient(135deg, var(--mali-red) 0%, var(--mali-yellow) 50%, var(--mali-green) 100%); } .card-shadow { box-shadow: 0 8px 16px rgba(206, 17, 38, 0.2), 0 4px 8px rgba(251, 185, 19, 0.15); } .station-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border-left: 5px solid var(--mali-gold); background: linear-gradient(135deg, #ffffff 0%, #fffdf7 100%); } .station-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 12px 24px rgba(206, 17, 38, 0.25), 0 0 20px rgba(251, 185, 19, 0.3); border-left-width: 8px; } .floating-animation { animation: floating 3s ease-in-out infinite; } @keyframes floating { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } } .pulse-animation { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; } @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .8; transform: scale(1.05); } } .pattern-bg { background-image: repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(251, 185, 19, 0.08) 15px, rgba(251, 185, 19, 0.08) 30px), repeating-linear-gradient(-45deg, transparent, transparent 15px, rgba(206, 17, 38, 0.05) 15px, rgba(206, 17, 38, 0.05) 30px); background-color: rgba(255, 255, 255, 0.95); } .form-container { background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(253,249,230,0.95) 100%); backdrop-filter: blur(10px); } .search-container { background: linear-gradient(135deg, #14B53A 0%, #FDB913 100%); } #map-container { background: linear-gradient(135deg, rgba(206, 17, 38, 0.1) 0%, rgba(251, 185, 19, 0.1) 100%); transition: all 0.3s ease; } #map-container:hover { transform: scale(1.02); box-shadow: 0 20px 40px rgba(20, 181, 58, 0.3); } .map-button { background: linear-gradient(135deg, var(--mali-green) 0%, var(--mali-gold) 100%); transition: all 0.4s ease; position: relative; overflow: hidden; } .map-button::before { content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.3); transform: translate(-50%, -50%); transition: width 0.6s, height 0.6s; } .map-button:hover::before { width: 300px; height: 300px; } .map-button:hover { transform: scale(1.1) rotate(2deg); box-shadow: 0 10px 30px rgba(20, 181, 58, 0.5); } .btn-mali { background: linear-gradient(135deg, var(--mali-green) 0%, var(--mali-yellow) 100%); transition: all 0.3s ease; position: relative; overflow: hidden; } .btn-mali::after { content: '→'; position: absolute; right: 20px; opacity: 0; transition: all 0.3s ease; } .btn-mali:hover::after { opacity: 1; right: 30px; } .btn-mali:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(20, 181, 58, 0.4); padding-right: 60px; } .search-glow:focus { box-shadow: 0 0 0 4px rgba(251, 185, 19, 0.4), 0 0 20px rgba(251, 185, 19, 0.3); transform: scale(1.02); } .status-badge { animation: fadeIn 0.5s ease-in, statusPulse 2s ease-in-out infinite; } @keyframes statusPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(20, 181, 58, 0.4); } 50% { box-shadow: 0 0 0 8px rgba(20, 181, 58, 0); } } @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } } .section-header { background: linear-gradient(135deg, rgba(20, 181, 58, 0.1) 0%, rgba(251, 185, 19, 0.1) 50%, rgba(206, 17, 38, 0.1) 100%); border-left: 6px solid var(--mali-gold); backdrop-filter: blur(5px); } input, select { transition: all 0.3s ease; } input:focus, select:focus { transform: translateY(-2px); } /* Mobile optimizations */ @media (max-width: 640px) { .station-card { margin-bottom: 1rem; } h1 { font-size: 1.75rem !important; } } /* Animated background shapes */ .bg-shape { position: fixed; border-radius: 50%; opacity: 0.1; z-index: 0; pointer-events: none; } .shape-1 { width: 300px; height: 300px; background: var(--mali-green); top: 10%; left: -150px; animation: float1 20s ease-in-out infinite; } .shape-2 { width: 400px; height: 400px; background: var(--mali-gold); bottom: 10%; right: -200px; animation: float2 25s ease-in-out infinite; } .shape-3 { width: 250px; height: 250px; background: var(--mali-red); top: 50%; right: 10%; animation: float3 30s ease-in-out infinite; } @keyframes float1 { 0%, 100% { transform: translate(0, 0) rotate(0deg); } 33% { transform: translate(100px, -50px) rotate(120deg); } 66% { transform: translate(-50px, 100px) rotate(240deg); } } @keyframes float2 { 0%, 100% { transform: translate(0, 0) rotate(0deg); } 33% { transform: translate(-150px, 50px) rotate(120deg); } 66% { transform: translate(100px, -100px) rotate(240deg); } } @keyframes float3 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-100px, 100px) scale(1.2); } } </style> <script type="application/ld+json"> { "@context": "https://schema.org", "@type": "Organization", "name": "FuelFinder Mali", "url": "https://fuelfindermali-production.up.railway.app", "logo": "https://fuelfindermali-production.up.railway.app/logo.png", "description": "FuelFinder Mali – trouvez et signalez les stations-service disponibles au Mali.", "sameAs": [ "https://www.facebook.com/FuelFinderMali", "https://www.linkedin.com/company/fuelfinder-mali/" ] } </script>
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="AwnPfBZENi106pRosanxN--lMMCE1u7-FxhVjNTWpuM" />
+    <meta name="msvalidate.01" content="AB177527A0D6F607F70A1F4A52D148A2" />
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="FuelFinder Mali – Découvrez les stations-service disponibles au Mali en temps réel. Signalez et trouvez du carburant facilement.">
+    <meta name="keywords" content="FuelFinder Mali, trouver carburant Mali, station-service Mali, essence Mali, gasoil Mali, stations essence Bamako">
+    <meta name="author" content="Cheick Tidiani Diawara">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://fuelfindermali-production.up.railway.app">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="FuelFinder Mali – Trouvez du carburant facilement">
+    <meta property="og:description" content="Découvrez les stations-service disponibles au Mali en temps réel. Signalez et trouvez du carburant facilement.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fuelfindermali-production.up.railway.app">
+    <meta property="og:image" content="https://fuelfindermali-production.up.railway.app/logo.png">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FuelFinder Mali – Trouvez du carburant facilement">
+    <meta name="twitter:description" content="Découvrez les stations-service disponibles au Mali en temps réel.">
+    <meta name="twitter:image" content="https://fuelfindermali-production.up.railway.app/logo.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        :root {
+            --mali-gold: #FDB913;
+            --mali-red: #CE1126;
+            --mali-green: #14B53A;
+            --mali-yellow: #FFD700;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #14B53A 0%, #FDB913 25%, #CE1126 50%, #FFD700 75%, #14B53A 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .station-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 5px solid var(--mali-gold);
+            background: linear-gradient(135deg, #ffffff 0%, #fffdf7 100%);
+        }
+        
+        .station-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 24px rgba(206, 17, 38, 0.25), 0 0 20px rgba(251, 185, 19, 0.3);
+            border-left-width: 8px;
+        }
+        
+        .floating-animation {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .8; transform: scale(1.05); }
+        }
+        
+        .btn-mali {
+            background: linear-gradient(135deg, var(--mali-green) 0%, var(--mali-yellow) 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-mali:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(20, 181, 58, 0.4);
+        }
+        
+        .bg-shape {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--mali-green);
+            top: 10%;
+            left: -150px;
+            animation: float1 20s ease-in-out infinite;
+        }
+        
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--mali-gold);
+            bottom: 10%;
+            right: -200px;
+            animation: float2 25s ease-in-out infinite;
+        }
+        
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(100px, -50px) rotate(120deg); }
+            66% { transform: translate(-50px, 100px) rotate(240deg); }
+        }
+        
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-150px, 50px) rotate(120deg); }
+            66% { transform: translate(100px, -100px) rotate(240deg); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "FuelFinder Mali",
+        "url": "https://fuelfindermali-production.up.railway.app",
+        "description": "FuelFinder Mali – trouvez et signalez les stations-service disponibles au Mali en temps réel.",
+        "applicationCategory": "Utility",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "XOF"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Cheick Tidiani Diawara"
+        },
+        "provider": {
+            "@type": "Organization",
+            "name": "FuelFinder Mali",
+            "sameAs": [
+                "https://www.facebook.com/FuelFinderMali",
+                "https://www.linkedin.com/company/fuelfinder-mali/"
+            ]
+        }
+    }
+    </script>
+</head>
 
 <body class="font-sans relative">
     <!-- Animated background shapes -->
     <div class="bg-shape shape-1"></div>
     <div class="bg-shape shape-2"></div>
-    <div class="bg-shape shape-3"></div>
 
-    <!-- Header with Mali colors -->
-    <header class="mali-gradient shadow-lg py-6 px-4 sticky top-0 z-50 relative">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-green-600 via-yellow-500 to-red-600 shadow-lg py-6 px-4 sticky top-0 z-50">
         <div class="container mx-auto text-center">
             <h1 class="text-4xl font-bold text-white flex items-center justify-center drop-shadow-lg floating-animation">
                 <span class="text-5xl mr-3 pulse-animation">⛽</span>
@@ -46,15 +187,14 @@
     </header>
 
     <!-- Add Station Form -->
-    <section class="py-8 px-4 pattern-bg relative z-10">
+    <section class="py-8 px-4 relative z-10">
         <div class="container mx-auto max-w-md">
-            <div class="form-container rounded-2xl shadow-xl p-6 card-shadow border-t-4" style="border-color: var(--mali-gold);">
+            <div class="bg-white bg-opacity-95 rounded-2xl shadow-xl p-6 border-t-4 border-yellow-500">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                     <span class="text-3xl mr-3 floating-animation">📍</span>
                     Signaler une station
                 </h2>
-                <form class="space-y-5" method="POST" action="">
-                    {% csrf_token %}
+                <form class="space-y-5" id="stationForm">
                     <div>
                         <label for="station-name" class="block text-sm font-bold text-gray-700 mb-2">
                             🏪 Nom de la station
@@ -96,7 +236,7 @@
                     </div>
                     <button 
                         type="submit" 
-                        class="w-full btn-mali text-white font-bold py-4 px-6 rounded-xl shadow-lg relative"
+                        class="w-full btn-mali text-white font-bold py-4 px-6 rounded-xl shadow-lg"
                     >
                         🚀 Publier l'information
                     </button>
@@ -106,7 +246,7 @@
     </section>
 
     <!-- Search Bar -->
-    <section class="py-6 px-4 search-container relative z-10">
+    <section class="py-6 px-4 bg-gradient-to-r from-green-600 to-yellow-500 relative z-10">
         <div class="container mx-auto max-w-2xl">
             <div class="relative">
                 <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-3xl pulse-animation">🔍</span>
@@ -114,7 +254,8 @@
                     type="text" 
                     id="search-station" 
                     placeholder="Rechercher une station ou une ville..."
-                    class="w-full pl-16 pr-4 py-5 border-2 border-white rounded-2xl focus:outline-none search-glow text-lg shadow-lg bg-white transition-all"
+                    class="w-full pl-16 pr-4 py-5 border-2 border-white rounded-2xl focus:outline-none text-lg shadow-lg bg-white transition-all"
+                    aria-label="Rechercher une station"
                 >
             </div>
         </div>
@@ -123,7 +264,7 @@
     <!-- Stations List -->
     <section class="py-8 px-4 relative z-10">
         <div class="container mx-auto max-w-2xl">
-            <div class="section-header rounded-xl p-4 shadow-lg mb-6">
+            <div class="bg-white bg-opacity-90 rounded-xl p-4 shadow-lg mb-6 border-l-6 border-yellow-500">
                 <h2 class="text-2xl font-bold text-gray-800 flex items-center">
                     <span class="text-3xl mr-3 floating-animation">📋</span>
                     Stations signalées
@@ -133,48 +274,26 @@
                 </h2>
             </div>
             <div id="stations-list" class="space-y-4">
-                {% for station in stations %}
-                <div class="station-card bg-white p-5 rounded-xl card-shadow">
-                    <div class="flex justify-between items-start mb-3">
-                        <h3 class="font-bold text-xl text-gray-800">{{ station.name }}</h3>
-                        <span class="status-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-bold {% if station.status == 'disponible' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %}">
-                            {% if station.status == 'disponible' %}
-                                🟢 Disponible
-                            {% else %}
-                                🔴 Rupture
-                            {% endif %}
-                        </span>
-                    </div>
-                    <p class="text-gray-600 mb-3 flex items-center">
-                        <span class="text-xl mr-2">📍</span>
-                        {{ station.location }}
-                    </p>
-                    <div class="flex items-center text-xs text-gray-500 bg-gradient-to-r from-gray-50 to-yellow-50 px-3 py-2 rounded-lg">
-                        <span class="mr-2">🕒</span>
-                        Mise à jour: {{ station.created_at|timesince }}
-                    </div>
-                </div>
-                {% empty %}
-                <div class="bg-white p-8 rounded-xl text-center card-shadow station-card">
+                <!-- Stations will be loaded here -->
+                <div class="bg-white p-8 rounded-xl text-center shadow-lg station-card">
                     <span class="text-6xl mb-4 block floating-animation">🔍</span>
                     <p class="text-gray-500 text-lg">Aucune station signalée pour l'instant.</p>
                     <p class="text-gray-400 text-sm mt-2">Soyez le premier à partager une information !</p>
                 </div>
-                {% endfor %}
             </div>
         </div>
     </section>
 
-    <!-- Google Maps Button -->
-    <section class="py-8 px-4 mali-gradient-reverse relative z-10">
+    <!-- Google Maps Section -->
+    <section class="py-8 px-4 bg-gradient-to-r from-red-600 via-yellow-500 to-green-600 relative z-10">
         <div class="container mx-auto max-w-4xl">
-            <div class="section-header rounded-xl p-6 shadow-lg mb-6 bg-white">
+            <div class="bg-white bg-opacity-90 rounded-xl p-6 shadow-lg mb-6 border-l-6 border-yellow-500">
                 <h2 class="text-2xl font-bold text-gray-800 flex items-center">
                     <span class="text-3xl mr-3 floating-animation">🗺️</span>
                     Voir sur Google Maps
                 </h2>
             </div>
-            <div id="map-container" class="rounded-2xl shadow-2xl overflow-hidden p-8 text-center">
+            <div class="bg-gradient-to-br from-red-100 to-yellow-100 rounded-2xl shadow-2xl overflow-hidden p-8 text-center hover:scale-105 transition-all">
                 <div class="bg-white rounded-xl p-8">
                     <div class="text-6xl mb-4 floating-animation">🌍</div>
                     <h3 class="text-2xl font-bold text-gray-800 mb-4">Explorez toutes les stations au Mali</h3>
@@ -182,9 +301,10 @@
                     <a 
                         href="https://www.google.com/maps/search/station+service/@17.5707,-3.9962,6z" 
                         target="_blank"
-                        class="map-button inline-block text-white font-bold py-5 px-10 rounded-2xl shadow-xl text-lg relative z-10"
+                        rel="noopener noreferrer"
+                        class="inline-block bg-gradient-to-r from-green-600 to-yellow-500 text-white font-bold py-5 px-10 rounded-2xl shadow-xl text-lg hover:scale-110 transition-all"
                     >
-                        <span class="relative z-10 flex items-center justify-center">
+                        <span class="flex items-center justify-center">
                             🚀 Ouvrir Google Maps
                         </span>
                     </a>
@@ -195,7 +315,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="mali-gradient text-white py-8 px-4 text-center mt-8 relative z-10">
+    <footer class="bg-gradient-to-r from-green-600 via-yellow-500 to-red-600 text-white py-8 px-4 text-center mt-8 relative z-10">
         <div class="container mx-auto">
             <div class="floating-animation inline-block mb-4">
                 <span class="text-5xl">🇲🇱</span>
@@ -211,47 +331,120 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script>
+        // Sample station data
+        const stations = [];
+
+        // Form submission handler
+        const form = document.getElementById('stationForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('station-name').value;
+            const location = document.getElementById('location').value;
+            const status = document.getElementById('status').value;
+            
+            const station = {
+                name: name,
+                location: location,
+                status: status,
+                created_at: new Date()
+            };
+            
+            stations.unshift(station);
+            renderStations(stations);
+            
+            // Reset form
+            form.reset();
+            
+            // Show success message
+            const button = form.querySelector('button[type="submit"]');
+            const originalText = button.innerHTML;
+            button.innerHTML = '✅ Publié avec succès !';
+            button.style.background = 'linear-gradient(135deg, #14B53A 0%, #14B53A 100%)';
+            
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.style.background = '';
+            }, 2000);
+        });
+
+        // Render stations
+        function renderStations(stationList) {
+            const container = document.getElementById('stations-list');
+            
+            if (stationList.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white p-8 rounded-xl text-center shadow-lg station-card">
+                        <span class="text-6xl mb-4 block floating-animation">🔍</span>
+                        <p class="text-gray-500 text-lg">Aucune station signalée pour l'instant.</p>
+                        <p class="text-gray-400 text-sm mt-2">Soyez le premier à partager une information !</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = stationList.map(station => {
+                const timeSince = getTimeSince(station.created_at);
+                const statusClass = station.status === 'disponible' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
+                const statusText = station.status === 'disponible' ? '🟢 Disponible' : '🔴 Rupture';
+                
+                return `
+                    <div class="station-card bg-white p-5 rounded-xl shadow-lg">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="font-bold text-xl text-gray-800">${station.name}</h3>
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${statusClass}">
+                                ${statusText}
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-3 flex items-center">
+                            <span class="text-xl mr-2">📍</span>
+                            ${station.location}
+                        </p>
+                        <div class="flex items-center text-xs text-gray-500 bg-gradient-to-r from-gray-50 to-yellow-50 px-3 py-2 rounded-lg">
+                            <span class="mr-2">🕒</span>
+                            Mise à jour: ${timeSince}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Time since helper
+        function getTimeSince(date) {
+            const seconds = Math.floor((new Date() - date) / 1000);
+            
+            let interval = seconds / 31536000;
+            if (interval > 1) return Math.floor(interval) + " an(s)";
+            
+            interval = seconds / 2592000;
+            if (interval > 1) return Math.floor(interval) + " mois";
+            
+            interval = seconds / 86400;
+            if (interval > 1) return Math.floor(interval) + " jour(s)";
+            
+            interval = seconds / 3600;
+            if (interval > 1) return Math.floor(interval) + " heure(s)";
+            
+            interval = seconds / 60;
+            if (interval > 1) return Math.floor(interval) + " minute(s)";
+            
+            return "à l'instant";
+        }
+
         // Search functionality
         const searchInput = document.getElementById('search-station');
         searchInput.addEventListener('input', function() {
             const filter = this.value.toLowerCase();
-            const stationCards = document.querySelectorAll('#stations-list > div');
-            
-            stationCards.forEach(card => {
-                const name = card.querySelector('h3')?.innerText.toLowerCase() || '';
-                const location = card.querySelector('p')?.innerText.toLowerCase() || '';
-                
-                if(name.includes(filter) || location.includes(filter)) {
-                    card.style.display = '';
-                    card.style.animation = 'fadeIn 0.5s ease-in';
-                } else {
-                    card.style.display = 'none';
-                }
+            const filteredStations = stations.filter(station => {
+                return station.name.toLowerCase().includes(filter) || 
+                       station.location.toLowerCase().includes(filter);
             });
+            renderStations(filteredStations);
         });
 
-        // Form validation with visual feedback
-        const form = document.querySelector('form');
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                const button = this.querySelector('button[type="submit"]');
-                button.innerHTML = '⏳ Publication en cours...';
-                button.disabled = true;
-            });
-        }
-
-        // Add smooth scroll behavior
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
+        // Initial render
+        renderStations(stations);
     </script>
 </body>
 </html>

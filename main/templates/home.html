@@ -22,6 +22,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://fuelfindermali-production.up.railway.app">
     <meta property="og:image" content="https://fuelfindermali-production.up.railway.app/logo.png">
+    <meta property="og:locale" content="fr_FR">
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -43,6 +44,8 @@
             background: linear-gradient(135deg, #14B53A 0%, #FDB913 25%, #CE1126 50%, #FFD700 75%, #14B53A 100%);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            background-attachment: fixed;
         }
         
         @keyframes gradientShift {
@@ -83,11 +86,36 @@
         .btn-mali {
             background: linear-gradient(135deg, var(--mali-green) 0%, var(--mali-yellow) 100%);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-mali::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-mali:hover::before {
+            width: 300px;
+            height: 300px;
         }
         
         .btn-mali:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 25px rgba(20, 181, 58, 0.4);
+        }
+        
+        .search-glow:focus {
+            box-shadow: 0 0 0 4px rgba(251, 185, 19, 0.4), 0 0 20px rgba(251, 185, 19, 0.3);
+            transform: scale(1.02);
         }
         
         .bg-shape {
@@ -116,6 +144,15 @@
             animation: float2 25s ease-in-out infinite;
         }
         
+        .shape-3 {
+            width: 250px;
+            height: 250px;
+            background: var(--mali-red);
+            top: 50%;
+            right: 10%;
+            animation: float3 30s ease-in-out infinite;
+        }
+        
         @keyframes float1 {
             0%, 100% { transform: translate(0, 0) rotate(0deg); }
             33% { transform: translate(100px, -50px) rotate(120deg); }
@@ -128,9 +165,57 @@
             66% { transform: translate(100px, -100px) rotate(240deg); }
         }
         
+        @keyframes float3 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-100px, 100px) scale(1.2); }
+        }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
+        }
+        
+        .status-badge {
+            animation: fadeIn 0.5s ease-in, statusPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes statusPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(20, 181, 58, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(20, 181, 58, 0); }
+        }
+        
+        .pattern-bg {
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(251, 185, 19, 0.08) 15px, rgba(251, 185, 19, 0.08) 30px),
+                              repeating-linear-gradient(-45deg, transparent, transparent 15px, rgba(206, 17, 38, 0.05) 15px, rgba(206, 17, 38, 0.05) 30px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        
+        .form-container {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(253,249,230,0.95) 100%);
+            backdrop-filter: blur(10px);
+        }
+        
+        .section-header {
+            background: linear-gradient(135deg, rgba(20, 181, 58, 0.1) 0%, rgba(251, 185, 19, 0.1) 50%, rgba(206, 17, 38, 0.1) 100%);
+            border-left: 6px solid var(--mali-gold);
+            backdrop-filter: blur(5px);
+        }
+        
+        input, select {
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus {
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 640px) {
+            .station-card {
+                margin-bottom: 1rem;
+            }
+            h1 {
+                font-size: 1.75rem !important;
+            }
         }
     </style>
     
@@ -144,6 +229,7 @@
         "description": "FuelFinder Mali – trouvez et signalez les stations-service disponibles au Mali en temps réel.",
         "applicationCategory": "Utility",
         "operatingSystem": "Web",
+        "inLanguage": "fr-FR",
         "offers": {
             "@type": "Offer",
             "price": "0",
@@ -156,10 +242,16 @@
         "provider": {
             "@type": "Organization",
             "name": "FuelFinder Mali",
+            "url": "https://fuelfindermali-production.up.railway.app",
             "sameAs": [
                 "https://www.facebook.com/FuelFinderMali",
                 "https://www.linkedin.com/company/fuelfinder-mali/"
             ]
+        },
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://fuelfindermali-production.up.railway.app?q={search_term_string}",
+            "query-input": "required name=search_term_string"
         }
     }
     </script>
@@ -169,6 +261,7 @@
     <!-- Animated background shapes -->
     <div class="bg-shape shape-1"></div>
     <div class="bg-shape shape-2"></div>
+    <div class="bg-shape shape-3"></div>
 
     <!-- Header -->
     <header class="bg-gradient-to-r from-green-600 via-yellow-500 to-red-600 shadow-lg py-6 px-4 sticky top-0 z-50">
@@ -187,14 +280,15 @@
     </header>
 
     <!-- Add Station Form -->
-    <section class="py-8 px-4 relative z-10">
+    <section class="py-8 px-4 pattern-bg relative z-10">
         <div class="container mx-auto max-w-md">
-            <div class="bg-white bg-opacity-95 rounded-2xl shadow-xl p-6 border-t-4 border-yellow-500">
+            <div class="form-container rounded-2xl shadow-xl p-6 border-t-4" style="border-color: var(--mali-gold);">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                     <span class="text-3xl mr-3 floating-animation">📍</span>
                     Signaler une station
                 </h2>
-                <form class="space-y-5" id="stationForm">
+                <form class="space-y-5" method="POST" action="">
+                    {% csrf_token %}
                     <div>
                         <label for="station-name" class="block text-sm font-bold text-gray-700 mb-2">
                             🏪 Nom de la station
@@ -236,9 +330,9 @@
                     </div>
                     <button 
                         type="submit" 
-                        class="w-full btn-mali text-white font-bold py-4 px-6 rounded-xl shadow-lg"
+                        class="w-full btn-mali text-white font-bold py-4 px-6 rounded-xl shadow-lg relative z-10"
                     >
-                        🚀 Publier l'information
+                        <span class="relative z-10">🚀 Publier l'information</span>
                     </button>
                 </form>
             </div>
@@ -254,7 +348,7 @@
                     type="text" 
                     id="search-station" 
                     placeholder="Rechercher une station ou une ville..."
-                    class="w-full pl-16 pr-4 py-5 border-2 border-white rounded-2xl focus:outline-none text-lg shadow-lg bg-white transition-all"
+                    class="w-full pl-16 pr-4 py-5 border-2 border-white rounded-2xl focus:outline-none search-glow text-lg shadow-lg bg-white transition-all"
                     aria-label="Rechercher une station"
                 >
             </div>
@@ -264,7 +358,7 @@
     <!-- Stations List -->
     <section class="py-8 px-4 relative z-10">
         <div class="container mx-auto max-w-2xl">
-            <div class="bg-white bg-opacity-90 rounded-xl p-4 shadow-lg mb-6 border-l-6 border-yellow-500">
+            <div class="section-header rounded-xl p-4 shadow-lg mb-6">
                 <h2 class="text-2xl font-bold text-gray-800 flex items-center">
                     <span class="text-3xl mr-3 floating-animation">📋</span>
                     Stations signalées
@@ -274,12 +368,34 @@
                 </h2>
             </div>
             <div id="stations-list" class="space-y-4">
-                <!-- Stations will be loaded here -->
+                {% for station in stations %}
+                <div class="station-card bg-white p-5 rounded-xl shadow-lg">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="font-bold text-xl text-gray-800">{{ station.name }}</h3>
+                        <span class="status-badge inline-flex items-center px-3 py-1 rounded-full text-xs font-bold {% if station.status == 'disponible' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %}">
+                            {% if station.status == 'disponible' %}
+                                🟢 Disponible
+                            {% else %}
+                                🔴 Rupture
+                            {% endif %}
+                        </span>
+                    </div>
+                    <p class="text-gray-600 mb-3 flex items-center">
+                        <span class="text-xl mr-2">📍</span>
+                        {{ station.location }}
+                    </p>
+                    <div class="flex items-center text-xs text-gray-500 bg-gradient-to-r from-gray-50 to-yellow-50 px-3 py-2 rounded-lg">
+                        <span class="mr-2">🕒</span>
+                        Mise à jour: {{ station.created_at|timesince }}
+                    </div>
+                </div>
+                {% empty %}
                 <div class="bg-white p-8 rounded-xl text-center shadow-lg station-card">
                     <span class="text-6xl mb-4 block floating-animation">🔍</span>
                     <p class="text-gray-500 text-lg">Aucune station signalée pour l'instant.</p>
                     <p class="text-gray-400 text-sm mt-2">Soyez le premier à partager une information !</p>
                 </div>
+                {% endfor %}
             </div>
         </div>
     </section>
@@ -287,13 +403,13 @@
     <!-- Google Maps Section -->
     <section class="py-8 px-4 bg-gradient-to-r from-red-600 via-yellow-500 to-green-600 relative z-10">
         <div class="container mx-auto max-w-4xl">
-            <div class="bg-white bg-opacity-90 rounded-xl p-6 shadow-lg mb-6 border-l-6 border-yellow-500">
+            <div class="section-header rounded-xl p-6 shadow-lg mb-6 bg-white">
                 <h2 class="text-2xl font-bold text-gray-800 flex items-center">
                     <span class="text-3xl mr-3 floating-animation">🗺️</span>
                     Voir sur Google Maps
                 </h2>
             </div>
-            <div class="bg-gradient-to-br from-red-100 to-yellow-100 rounded-2xl shadow-2xl overflow-hidden p-8 text-center hover:scale-105 transition-all">
+            <div class="bg-gradient-to-br from-red-100 to-yellow-100 rounded-2xl shadow-2xl overflow-hidden p-8 text-center hover:scale-105 transition-all duration-300">
                 <div class="bg-white rounded-xl p-8">
                     <div class="text-6xl mb-4 floating-animation">🌍</div>
                     <h3 class="text-2xl font-bold text-gray-800 mb-4">Explorez toutes les stations au Mali</h3>
@@ -302,9 +418,10 @@
                         href="https://www.google.com/maps/search/station+service/@17.5707,-3.9962,6z" 
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="inline-block bg-gradient-to-r from-green-600 to-yellow-500 text-white font-bold py-5 px-10 rounded-2xl shadow-xl text-lg hover:scale-110 transition-all"
+                        class="inline-block bg-gradient-to-r from-green-600 to-yellow-500 text-white font-bold py-5 px-10 rounded-2xl shadow-xl text-lg hover:scale-110 transition-all duration-300 relative overflow-hidden"
+                        style="position: relative;"
                     >
-                        <span class="flex items-center justify-center">
+                        <span class="relative z-10 flex items-center justify-center">
                             🚀 Ouvrir Google Maps
                         </span>
                     </a>
@@ -332,119 +449,71 @@
     </footer>
 
     <script>
-        // Sample station data
-        const stations = [];
-
-        // Form submission handler
-        const form = document.getElementById('stationForm');
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('station-name').value;
-            const location = document.getElementById('location').value;
-            const status = document.getElementById('status').value;
-            
-            const station = {
-                name: name,
-                location: location,
-                status: status,
-                created_at: new Date()
-            };
-            
-            stations.unshift(station);
-            renderStations(stations);
-            
-            // Reset form
-            form.reset();
-            
-            // Show success message
-            const button = form.querySelector('button[type="submit"]');
-            const originalText = button.innerHTML;
-            button.innerHTML = '✅ Publié avec succès !';
-            button.style.background = 'linear-gradient(135deg, #14B53A 0%, #14B53A 100%)';
-            
-            setTimeout(() => {
-                button.innerHTML = originalText;
-                button.style.background = '';
-            }, 2000);
-        });
-
-        // Render stations
-        function renderStations(stationList) {
-            const container = document.getElementById('stations-list');
-            
-            if (stationList.length === 0) {
-                container.innerHTML = `
-                    <div class="bg-white p-8 rounded-xl text-center shadow-lg station-card">
-                        <span class="text-6xl mb-4 block floating-animation">🔍</span>
-                        <p class="text-gray-500 text-lg">Aucune station signalée pour l'instant.</p>
-                        <p class="text-gray-400 text-sm mt-2">Soyez le premier à partager une information !</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            container.innerHTML = stationList.map(station => {
-                const timeSince = getTimeSince(station.created_at);
-                const statusClass = station.status === 'disponible' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
-                const statusText = station.status === 'disponible' ? '🟢 Disponible' : '🔴 Rupture';
-                
-                return `
-                    <div class="station-card bg-white p-5 rounded-xl shadow-lg">
-                        <div class="flex justify-between items-start mb-3">
-                            <h3 class="font-bold text-xl text-gray-800">${station.name}</h3>
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${statusClass}">
-                                ${statusText}
-                            </span>
-                        </div>
-                        <p class="text-gray-600 mb-3 flex items-center">
-                            <span class="text-xl mr-2">📍</span>
-                            ${station.location}
-                        </p>
-                        <div class="flex items-center text-xs text-gray-500 bg-gradient-to-r from-gray-50 to-yellow-50 px-3 py-2 rounded-lg">
-                            <span class="mr-2">🕒</span>
-                            Mise à jour: ${timeSince}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // Time since helper
-        function getTimeSince(date) {
-            const seconds = Math.floor((new Date() - date) / 1000);
-            
-            let interval = seconds / 31536000;
-            if (interval > 1) return Math.floor(interval) + " an(s)";
-            
-            interval = seconds / 2592000;
-            if (interval > 1) return Math.floor(interval) + " mois";
-            
-            interval = seconds / 86400;
-            if (interval > 1) return Math.floor(interval) + " jour(s)";
-            
-            interval = seconds / 3600;
-            if (interval > 1) return Math.floor(interval) + " heure(s)";
-            
-            interval = seconds / 60;
-            if (interval > 1) return Math.floor(interval) + " minute(s)";
-            
-            return "à l'instant";
-        }
-
-        // Search functionality
+        // Search functionality with Django template content
         const searchInput = document.getElementById('search-station');
-        searchInput.addEventListener('input', function() {
-            const filter = this.value.toLowerCase();
-            const filteredStations = stations.filter(station => {
-                return station.name.toLowerCase().includes(filter) || 
-                       station.location.toLowerCase().includes(filter);
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                const filter = this.value.toLowerCase();
+                const stationCards = document.querySelectorAll('#stations-list > div');
+                
+                stationCards.forEach(card => {
+                    const name = card.querySelector('h3')?.innerText.toLowerCase() || '';
+                    const location = card.querySelector('p')?.innerText.toLowerCase() || '';
+                    
+                    if(name.includes(filter) || location.includes(filter)) {
+                        card.style.display = '';
+                        card.style.animation = 'fadeIn 0.5s ease-in';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
             });
-            renderStations(filteredStations);
+        }
+
+        // Form submission feedback
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                const button = this.querySelector('button[type="submit"]');
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<span class="relative z-10">⏳ Publication en cours...</span>';
+                button.disabled = true;
+                
+                // Re-enable after 3 seconds if form doesn't submit
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.disabled = false;
+                }, 3000);
+            });
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }
+            });
         });
 
-        // Initial render
-        renderStations(stations);
+        // Add entrance animation to station cards on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.station-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
     </script>
 </body>
 </html>

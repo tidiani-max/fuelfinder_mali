@@ -6,6 +6,7 @@ from django.urls import reverse
 class StaticViewSitemap(Sitemap):
     protocol = "https"  # Force HTTPS instead of HTTP
 
+    
     def items(self):
         # List of named URLs you want indexed
         return ['home']

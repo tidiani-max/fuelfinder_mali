@@ -1,18 +1,18 @@
-# main/sitemaps.py (Temporary testing code)
+
+# main/sitemaps.py
 from django.contrib.sitemaps import Sitemap
+from django.urls import reverse
 
-# Do not import Station model
-# from .models import Station 
+class StaticViewSitemap(Sitemap):
+    protocol = "https"  # Force HTTPS instead of HTTP
 
-class StationSitemap(Sitemap):
-    # This will just create one link for the home page.
     def items(self):
+        # List of named URLs you want indexed
         return ['home']
 
     def location(self, item):
-        return '/'
+        return reverse(item)
 
 sitemaps = {
-    'test': StationSitemap, # Use 'test' instead of 'stations'
+    'static': StaticViewSitemap,
 }
-# Keep your urls.py the same, but it will use the new 'sitemaps' dictionary.

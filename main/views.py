@@ -26,8 +26,6 @@ def home(request):
 
 from django.http import HttpResponse
 
-from django.http import HttpResponse
-
 def robots_txt(request):
     content = (
         "User-agent: *\n"

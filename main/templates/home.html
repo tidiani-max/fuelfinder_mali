@@ -9,7 +9,6 @@
     <meta name="google-site-verification" content="AwnPfBZENi106pRosanxN--lMMCE1u7-FxhVjNTWpuM" />
     <meta name="msvalidate.01" content="AB177527A0D6F607F70A1F4A52D148A2" />
 
-
     <!-- SEO Meta Tags -->
     <meta name="description" content="FuelFinder Mali – Découvrez les stations-service disponibles au Mali en temps réel. Signalez et trouvez du carburant facilement.">
     <meta name="keywords" content="FuelFinder Mali, trouver carburant Mali, station-service Mali, essence Mali, gasoil Mali, stations essence Bamako">
@@ -31,10 +30,8 @@
     <meta name="twitter:description" content="Découvrez les stations-service disponibles au Mali en temps réel.">
     <meta name="twitter:image" content="https://fuelfindermali-production.up.railway.app/logo.png">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -265,16 +262,31 @@
 
 <body class="font-sans relative">
     
-    <!-- Anti-Fake Info Alert -->
-<div id="alert-banner" class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-red-700 via-yellow-500 to-green-600 text-white text-center shadow-2xl py-4 px-6 animate-pulse flex items-center justify-center font-bold text-lg md:text-xl">
-    <span class="mr-3 text-2xl">🚨</span>
-    <span>NE PARTAGEZ PAS DE FAUSSES INFORMATIONS</span>
-    <button onclick="closeAlert()" class="ml-4 text-white bg-black bg-opacity-30 hover:bg-opacity-60 px-3 py-1 rounded-full text-sm transition">
-        ✖️ Fermer
-    </button>
-</div>
-
-
+    <!-- Anti-Fake Info Alert Modal (Center Screen) -->
+    <div id="alert-modal" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm">
+        <div class="bg-gradient-to-br from-red-600 via-yellow-500 to-green-600 p-1 rounded-3xl shadow-2xl max-w-2xl mx-4 animate-pulse">
+            <div class="bg-white rounded-3xl p-8 md:p-12 text-center">
+                <div class="text-8xl mb-6 floating-animation">🚨</div>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-red-700 mb-6 leading-tight">
+                    NE POSTEZ PAS DE FAUSSES INFORMATIONS
+                </h2>
+                <p class="text-gray-700 text-lg md:text-xl mb-8 leading-relaxed">
+                    Votre signalement aide toute la communauté malienne. Partagez uniquement des informations 
+                    <span class="font-bold text-red-600">vérifiées et récentes</span> pour que FuelFinder Mali reste 
+                    un outil <span class="font-bold text-green-600">fiable et utile</span> pour tous.
+                </p>
+                <p class="text-sm text-gray-500 mb-8 italic">
+                    🤝 Ensemble, construisons une plateforme de confiance pour le Mali
+                </p>
+                <button 
+                    onclick="closeAlertModal()" 
+                    class="bg-gradient-to-r from-green-600 to-yellow-500 hover:from-green-700 hover:to-yellow-600 text-white font-bold py-4 px-12 rounded-full text-xl shadow-lg transform hover:scale-105 transition-all duration-300"
+                >
+                    ✅ J'ai compris
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Animated background shapes -->
     <div class="bg-shape shape-1"></div>
@@ -296,24 +308,24 @@
             </p>
         </div>
     </header>
-    <!-- Important Alert Section -->
-<section class="py-6 px-4 bg-gradient-to-r from-red-600 via-yellow-500 to-green-600 text-white text-center shadow-lg relative z-10">
-    <div class="container mx-auto max-w-3xl">
-        <div class="bg-white bg-opacity-20 p-6 rounded-2xl backdrop-blur-md border-2 border-yellow-300">
-            <h2 class="text-2xl md:text-3xl font-extrabold mb-3 animate-pulse">
-                ⚠️ Situation actuelle : Pénurie de carburant au Mali
-            </h2>
-            <p class="text-lg font-semibold leading-relaxed">
-                Le carburant reste <span class="underline decoration-yellow-300">rare dans plusieurs régions</span>.
-                Merci de partager uniquement des informations <span class="text-yellow-200 font-bold">fiables et récentes</span> sur les stations que vous visitez.
-            </p>
-            <p class="mt-4 text-sm text-yellow-100 italic">
-                🕒 Chaque signalement aide la communauté — ne publiez pas de fausses données.
-            </p>
-        </div>
-    </div>
-</section>
 
+    <!-- Important Alert Section -->
+    <section class="py-6 px-4 bg-gradient-to-r from-red-600 via-yellow-500 to-green-600 text-white text-center shadow-lg relative z-10">
+        <div class="container mx-auto max-w-3xl">
+            <div class="bg-white bg-opacity-20 p-6 rounded-2xl backdrop-blur-md border-2 border-yellow-300">
+                <h2 class="text-2xl md:text-3xl font-extrabold mb-3 animate-pulse">
+                    ⚠️ Situation actuelle : Pénurie de carburant au Mali
+                </h2>
+                <p class="text-lg font-semibold leading-relaxed">
+                    Le carburant reste <span class="underline decoration-yellow-300">rare dans plusieurs régions</span>.
+                    Merci de partager uniquement des informations <span class="text-yellow-200 font-bold">fiables et récentes</span> sur les stations que vous visitez.
+                </p>
+                <p class="mt-4 text-sm text-yellow-100 italic">
+                    🕒 Chaque signalement aide la communauté — ne publiez pas de fausses données.
+                </p>
+            </div>
+        </div>
+    </section>
 
     <!-- Add Station Form -->
     <section class="py-8 px-4 pattern-bg relative z-10">
@@ -391,7 +403,6 @@
         </div>
     </section>
 
-
     <!-- Stations List -->
     <section class="py-8 px-4 relative z-10">
         <div class="container mx-auto max-w-2xl">
@@ -467,7 +478,8 @@
             </div>
         </div>
     </section>
-</section>
+
+    <!-- Mission Section -->
     <section class="py-12 px-4 relative z-10 bg-white bg-opacity-95 shadow-lg border-t-8 border-yellow-500">
         <div class="container mx-auto max-w-4xl">
             <h2 class="text-3xl font-extrabold text-red-600 mb-4 text-center">
@@ -498,12 +510,8 @@
                 <span class="text-2xl mr-2">🤝</span> Merci de votre contribution. Chaque signalement est un pas vers
                 un Mali plus informé !
             </div>
-
         </div>
     </section>
-
-        `
-
 
     <!-- Footer -->
     <footer class="bg-gradient-to-r from-green-600 via-yellow-500 to-red-600 text-white py-8 px-4 text-center mt-8 relative z-10">
@@ -523,6 +531,15 @@
     </footer>
 
     <script>
+        // Close alert modal function
+        function closeAlertModal() {
+            const modal = document.getElementById('alert-modal');
+            modal.style.transition = "all 0.5s ease";
+            modal.style.opacity = "0";
+            modal.style.transform = "scale(0.9)";
+            setTimeout(() => modal.style.display = "none", 500);
+        }
+
         // Search functionality with Django template content
         const searchInput = document.getElementById('search-station');
         if (searchInput) {
@@ -589,13 +606,5 @@
             });
         });
     </script>
-    <script>
-function closeAlert() {
-    const alert = document.getElementById('alert-banner');
-    alert.style.transition = "all 0.5s ease";
-    alert.style.opacity = "0";
-    setTimeout(() => alert.style.display = "none", 500);
-}
-</script>
 </body>
 </html>

@@ -1,13 +1,14 @@
-from django.shortcuts import render
-
-# Create your views here.
-from django.shortcuts import render
-
 # stations/views.py
 from django.shortcuts import render, redirect
 from .models import Station
+from django.utils import timezone
+from datetime import timedelta
 
 def home(request):
+    # 🕒 Auto-delete old stations (older than 12 hours)
+    twelve_hours_ago = timezone.now() - timedelta(hours=12)
+    Station.objects.filter(created_at__lt=twelve_hours_ago).delete()
+
     if request.method == "POST":
         name = request.POST.get("station-name")
         location = request.POST.get("location")
@@ -18,6 +19,9 @@ def home(request):
 
     stations = Station.objects.all().order_by('-created_at')
     return render(request, "home.html", {"stations": stations})
+
+
+
 
 
 from django.http import HttpResponse

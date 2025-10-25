@@ -26,12 +26,15 @@ def home(request):
 
 from django.http import HttpResponse
 
-def robots_txt(request):
-    content = """
-    User-agent: *
-    Disallow:
+from django.http import HttpResponse
 
-    Sitemap: https://fuelfindermali-production.up.railway.app/sitemap.xml
-    """
+def robots_txt(request):
+    content = (
+        "User-agent: *\n"
+        "Disallow:\n"
+        "\n"
+        "Sitemap: https://fuelfindermali-production.up.railway.app/sitemap.xml\n"
+    )
     return HttpResponse(content, content_type="text/plain")
+
 

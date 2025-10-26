@@ -14,12 +14,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
+from django.http import HttpResponsePermanentRedirect
+from django.urls import path, re_path
+
+def redirect_to_pythonanywhere(request, path=None):
+    target_url = "https://fuelfindermali.pythonanywhere.com/"
+    if path:
+        target_url += path
+    return HttpResponsePermanentRedirect(target_url)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('main.urls')),
-
+    re_path(r'^(?P<path>.*)$', redirect_to_pythonanywhere),  # Redirect ALL routes
 ]
+
 

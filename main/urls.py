@@ -1,18 +1,17 @@
 from django.urls import path
-from . import views
 from django.contrib.sitemaps.views import sitemap
-from .sitemaps import StationSitemap
+from .sitemaps import StaticViewSitemap
+from . import views
 
 sitemaps = {
-    'stations': StationSitemap,
+    "static": StaticViewSitemap,
 }
+
 urlpatterns = [
-    # 1. PLACE SPECIFIC PATHS FIRST (sitemap.xml and robots.txt)
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django-sitemap'),
-    path("robots.txt", views.robots_txt),
-    
-    # 2. PLACE THE GENERIC HOME PATH LAST
-    path('', views.home, name='home'), 
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django-sitemap"),
+    path("robots.txt", views.robots_txt, name="robots-txt"),
+    path("", views.home, name="home"),
 ]
+
 
 

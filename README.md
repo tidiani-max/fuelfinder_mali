@@ -1,152 +1,65 @@
-# ⛽ FuelFinder Mali
+<div align="center">
+  <h1>⛽ FuelFinder Mali</h1>
+  <p>
+    <strong>Account-Free Crowdsourced Crisis-Response Platform for Real-Time Fuel Availability</strong>
+  </p>
+  <p>
+    Privacy-first web platform built during Mali's national fuel shortage—combining <strong>Redis rate limiting</strong>, <strong>12-hour automatic record expiry</strong>, <strong>phonetic + Levenshtein station matching</strong>, and a <strong>heuristic consensus validation rule</strong>.
+  </p>
 
-> A community-powered platform that helps people across Mali find available fuel stations, compare prices, and share real-time fuel availability during fuel shortages.
-
-FuelFinder Mali was created in response to recurring fuel shortages in Mali. The platform enables citizens to locate nearby fuel stations, verify fuel availability through community reports, and access up-to-date pricing information.
-
-By combining geolocation, crowdsourced updates, and intelligent verification, FuelFinder Mali improves access to reliable fuel information when it matters most.
-
----
-
-## ✨ Features
-
-- ⛽ Find nearby fuel stations
-- 📍 Interactive map with geolocation
-- 💰 Compare fuel prices
-- 👥 Community-powered fuel availability reports
-- ✅ Verification system for reported information
-- 🔍 Smart search and filtering
-- 📱 Responsive mobile-friendly interface
-- ⚡ Fast and lightweight user experience
+  <p>
+    <img src="https://img.shields.io/badge/Backend-Django_5.2-092E20?style=for-the-badge&logo=django&logoColor=white" alt="Django 5.2" />
+    <img src="https://img.shields.io/badge/Database-PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
+    <img src="https://img.shields.io/badge/Cache_%26_Rate_Limit-Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis" />
+    <img src="https://img.shields.io/badge/Deployment-Docker_%7C_Railway-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
+    <img src="https://img.shields.io/badge/Research-Peer--Reviewed_(BUSINTA)-0A66C2?style=for-the-badge" alt="Research" />
+  </p>
+</div>
 
 ---
 
-## 🌍 Why FuelFinder Mali?
+## 📖 Overview
 
-Fuel shortages can make it difficult for drivers to know where fuel is available.
+**FuelFinder Mali** is an account-free crowdsourced reporting platform designed to help residents locate active fuel stations during acute supply shortages without requiring user registration, personal identifiers, or manual human moderation.
 
-FuelFinder Mali provides a centralized platform where users can:
+Built and deployed in production for a 90-day crisis window, the system balances **low-friction public participation** and **user privacy** against **spam, stale data, and false reporting**.
 
-- Discover nearby fuel stations
-- Check fuel availability before traveling
-- View recent community reports
-- Compare prices between stations
-- Help others by sharing updates
+> 📄 **Academic Reference:** Based on *"Heuristic Consensus for Anonymous Data Validation in Crisis Systems"* — Cheick Tidiani Diawara & Didik Dwi Prasetya, Universitas Negeri Malang & USTTB Bamako.
 
-The platform is designed to improve transparency and reduce unnecessary travel during fuel crises.
+---
+
+## ✨ Key Engineering & Algorithmic Features
+
+- 🕵️ **Zero-Account Privacy-First Reporting** — Citizens submit station status (`disponible` or `indisponible`) without creating accounts; no names, phone numbers, or persistent user IDs are stored in PostgreSQL
+- ⏳ **12-Hour Automatic Record Expiry** — Station reports automatically expire and purge after **12 hours** to prevent stale availability data from misleading drivers
+- 🚦 **Redis IP Rate Limiting** — Fixed-window rate limiter (`5 submissions / 900s`) backed by `django-redis` using transient client IP keys that auto-expire within 15 minutes
+- 🔤 **Two-Stage Station Name Matching** — Normalizes multilingual French/Bambara spelling variants (lowercasing, accent stripping, phonetic mapping such as `ou` → `u`) and groups reports using length-adaptive Levenshtein distance (`Threshold = max(2, ceil(len / 5))`) and similarity (`>= 0.85`)
+- ✅ **Heuristic Consensus Validation (`K = 5`)** — Marks a station status `x` as **Verified** only when at least `K = 5` distinct reporters agree and confirmations strictly outnumber contradictions (`c_x >= 5` and `c_x > c_y`); otherwise holds the station as **Pending**
+- 🗺️ **Interactive Geolocation Map** — Mobile-friendly map interface powered by the **Google Maps API** and browser geolocation
 
 ---
 
 ## 🏗️ System Architecture
 
 ```text
-Users
-   │
-   ▼
-Interactive Web Platform
-   │
-   ├───────────────┐
-   │               │
-   ▼               ▼
-Station Database   Community Reports
-   │               │
-   └───────┬───────┘
-           ▼
-Verification & Search Engine
-           │
-           ▼
-Interactive Map
-```
-
----
-
-## 🛠️ Tech Stack
-
-### Backend
-
-- Python
-- Django
-- Django REST Framework
-- PostgreSQL
-
-### Frontend
-
-- HTML5
-- CSS3
-- JavaScript
-
-### Services
-
-- Google Maps API
-- Geolocation
-- REST API
-
----
-
-## 🚀 Getting Started
-
-### Clone the repository
-
-```bash
-git clone https://github.com/tidiani-max/FuelFinder-Mali.git
-
-cd FuelFinder-Mali
-```
-
-### Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### Configure environment variables
-
-```bash
-cp .env.example .env
-```
-
-Update your environment variables.
-
-### Run the server
-
-```bash
-python manage.py migrate
-
-python manage.py runserver
-```
-
----
-
-## 📸 Screenshots
-
-Coming soon
-
-- Home Page
-- Interactive Map
-- Station Details
-- Community Reports
-
----
-
-## 🚀 Impact
-
-- 🇲🇱 Built to address fuel shortages in Mali
-- 🌍 Community-driven information sharing
-- 📍 Helps users save time and fuel by locating available stations
-
----
-
-## 🗺️ Roadmap
-
-- Mobile application
-- AI-powered fuel demand prediction
-- Route optimization
-- Push notifications
-- Fuel price trends
-- Offline map support
-
----
-
-## 📄 License
-
-MIT License
+┌─────────────────────────────┐
+│   Citizens (Mobile / Web)   │
+│  Browser Geolocation + Map  │
+└──────────────┬──────────────┘
+               │ HTTPS (CSRF & Secure Session Cookies)
+               ▼
+┌──────────────────────────────────────────────────────────┐
+│                 Django 5.2 Application                   │
+│                                                          │
+│  ┌────────────────────┐   ┌───────────────────────────┐  │
+│  │ Validation & Purge │   │ Consensus & Matching      │  │
+│  │ • Field checks     │   │ • Phonetic + Levenshtein  │  │
+│  │ • 12h TTL cleanup  │   │ • Heuristic rule (K = 5)  │  │
+│  └─────────┬──────────┘   └─────────────┬─────────────┘  │
+└────────────┼────────────────────────────┼────────────────┘
+             │                            │
+             ▼                            ▼
+┌─────────────────────────┐  ┌─────────────────────────────┐
+│       PostgreSQL        │  │            Redis            │
+│ (Ephemeral 12h Reports) │  │ (5 req / 15m Rate Limiter)  │
+└─────────────────────────┘  └─────────────────────────────┘
